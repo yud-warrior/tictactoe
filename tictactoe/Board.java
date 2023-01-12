@@ -44,11 +44,12 @@ public class Board {
     }
 
     private String wrongCoordsMessage() {
-        return "Both the coordinates must be between 0 and " +
-                Integer.toString(SIZE);
+        String msg = "Both the coordinates must be between 0 and ";
+        msg += Integer.toString(SIZE);
+        return msg;
     }
 
     public static boolean isValidCoords(int x, int y) {
-        return (x >= 0 && x < SIZE && y >= 0 && y < SIZE);
+        return ( (x >= 0) && (x < SIZE) && (y >= 0) && (y < SIZE));
     }
 }
