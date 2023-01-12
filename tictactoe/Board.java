@@ -22,12 +22,20 @@ public class Board {
     public Cell getCell(int row, int col) throws WrongCoordinatesException {
         if(!isValidCoordinates(row, col))
             throw new WrongCoordinatesException(wrongCoordinatesMessage());
+        return getCellUnsafe(row, col);
+    }
+
+    public Cell getCellUnsafe(int row, int col) {
         return board[row][col];
     }
 
     public void setCell(int row, int col, Cell typCell) throws WrongCoordinatesException {
         if(!isValidCoordinates(row, col))
             throw new WrongCoordinatesException(wrongCoordinatesMessage());
+        setCellUnsafe(row, col, typCell);
+    }
+
+    private void setCellUnsafe(int row, int col, Cell typCell) {
         board[row][col] = typCell;
     }
 

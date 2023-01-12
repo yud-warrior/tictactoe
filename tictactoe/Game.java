@@ -77,7 +77,7 @@ public class Game {
     private boolean thereIsNoEmptyCell() {
         for(int i = 0; i < board.size(); i++)
             for(int j = 0; j < board.size(); j++)
-                if(getCellSafe(i, j) == Cell.EMPTY)
+                if(getCellUnsafe(i, j) == Cell.EMPTY)
                     return false;
         return true;
     }
@@ -113,53 +113,47 @@ public class Game {
     }
 
     private GameState getStateByRow(int row) {
-        Cell firstCellInLine = getCellSafe(row, 0);
+        Cell firstCellInLine = getCellUnsafe(row, 0);
 
         for(int i = 1; i < board.size(); i++) {
-            if(getCellSafe(row, i) != firstCellInLine)
+            if(getCellUnsafe(row, i) != firstCellInLine)
                 return GameState.UNFINISHED;
         }
         return getStateByLineTypCell(firstCellInLine);
     }
 
     private GameState getStateByCol(int col) {
-        Cell firstCellInLine = getCellSafe(0, col);
+        Cell firstCellInLine = getCellUnsafe(0, col);
 
         for(int i = 1; i < board.size(); i++) {
-            if(getCellSafe(i, col) != firstCellInLine)
+            if(getCellUnsafe(i, col) != firstCellInLine)
                 return GameState.UNFINISHED;
         }
         return getStateByLineTypCell(firstCellInLine);
     }
 
     private GameState getStateByMainDiagonal() {
-        Cell firstCellInLine = getCellSafe(0, 0);
+        Cell firstCellInLine = getCellUnsafe(0, 0);
 
         for(int i = 1; i < board.size(); i++) {
-            if(getCellSafe(i, i) != firstCellInLine)
+            if(getCellUnsafe(i, i) != firstCellInLine)
                 return GameState.UNFINISHED;
         }
         return getStateByLineTypCell(firstCellInLine);
     }
 
     private GameState getStateByNotMainDiagonal() {
-        Cell firstCellInLine = getCellSafe(board.size() - 1, 0);
+        Cell firstCellInLine = getCellUnsafe(board.size() - 1, 0);
 
         for(int i = 1; i < board.size(); i++) {
-            if(getCellSafe(board.size() - 1 - i, i) != firstCellInLine)
+            if(getCellUnsafe(board.size() - 1 - i, i) != firstCellInLine)
                 return GameState.UNFINISHED;
         }
         return getStateByLineTypCell(firstCellInLine);
     }
 
-    private Cell getCellSafe(int row, int col) {
-        Cell cell = Cell.EMPTY;
-        try {
-            cell = board.getCell(row, col);
-        } catch (WrongCoordinatesException ex) {
-            //it will never happenned in this method
-        }
-        return cell;
+    private Cell getCellUnsafe(int row, int col) {
+        return board.getCellUnsafe(row, col);
     }
 
     private GameState getStateByLineTypCell(Cell typCell) {
