@@ -19,9 +19,9 @@ public class Board {
         return SIZE;
     }
 
-    public Cell getCell(int row, int col) throws WrongCoordinatesException {
-        if(!isValidCoordinates(row, col))
-            throw new WrongCoordinatesException(wrongCoordinatesMessage());
+    public Cell getCell(int row, int col) throws WrongCoordsException {
+        if(!isValidCoords(row, col))
+            throw new WrongCoordsException(wrongCoordsMessage());
         return getCellUnsafe(row, col);
     }
 
@@ -29,9 +29,13 @@ public class Board {
         return board[row][col];
     }
 
-    public void setCell(int row, int col, Cell typCell) throws WrongCoordinatesException {
-        if(!isValidCoordinates(row, col))
-            throw new WrongCoordinatesException(wrongCoordinatesMessage());
+    public void setCell(
+        int row, 
+        int col, 
+        Cell typCell
+    ) throws WrongCoordsException {
+        if(!isValidCoords(row, col))
+            throw new WrongCoordsException(wrongCoordsMessage());
         setCellUnsafe(row, col, typCell);
     }
 
@@ -39,12 +43,12 @@ public class Board {
         board[row][col] = typCell;
     }
 
-    private String wrongCoordinatesMessage() {
+    private String wrongCoordsMessage() {
         return "Both the coordinates must be between 0 and " +
                 Integer.toString(SIZE);
     }
 
-    public static boolean isValidCoordinates(int x, int y) {
+    public static boolean isValidCoords(int x, int y) {
         return (x >= 0 && x < SIZE && y >= 0 && y < SIZE);
     }
 }

@@ -20,17 +20,17 @@ public class Game {
     }
 
     public void makeMove(Move move) throws WrongMoveException {
-        throwWrongMoveExceptionIfWrong(move);
+        throwExceptionIfWrong(move);
         setCellBy(move);
         changeTurn();
         changeState();
     }
 
-    private void throwWrongMoveExceptionIfWrong(Move move) throws WrongMoveException {
+    private void throwExceptionIfWrong(Move move) throws WrongMoveException {
         Cell typCell;
         try { 
             typCell = board.getCell(move.row, move.col);
-        } catch(WrongCoordinatesException ex) {
+        } catch(WrongCoordsException ex) {
             throw new WrongMoveException(ex.getMessage());
         }
 
@@ -45,7 +45,7 @@ public class Game {
     private void setCellBy(Move move) throws WrongMoveException {
         try {
             board.setCell(move.row, move.col, turnTypCell());
-        } catch(WrongCoordinatesException ex) {
+        } catch(WrongCoordsException ex) {
             throw new WrongMoveException(ex.getMessage());
         }
     }
